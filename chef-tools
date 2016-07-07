@@ -1,0 +1,46 @@
+#!/usr/bin/ruby
+
+require 'getoptlong'
+
+if File.symlink?(__FILE__)
+  $src_path = File.dirname(File.readlink(__FILE__))
+  require File.join($src_path, 'common')
+else
+  $src_path = File.dirname(__FILE__)
+  require File.join($src_path, 'common')
+end
+
+$filename = File.basename(__FILE__)
+
+$tools_list = [
+  'deploy',
+  'bootstrap',
+  'remove_gr'
+]
+
+def usage
+  opt_tools = $tools_list.join(" | ")
+  puts "Usage: #{$filename} [#{opt_tools}]"
+  exit 1
+end
+
+if ARGV.length == 0
+  usage
+end
+
+arg_list = Common.parse_args(ARGV)
+$opt = arg_list[1..(arg_list.length-1)].join(' ')
+
+case ARGV[0]
+  when "-h", "--help"
+    usage
+  when 'deploy'
+    exec "#{$src_path}/deploy.rb #{$opt}"
+  when 'bootstrap'
+    exec "#{$src_path}/bootstrap.rb #{$opt}"
+  when 'remove_gr'
+    exec "#{$src_path}/remove_gr.rb #{$opt}"
+  else
+    puts "Invalid option. Please use --help to check the usage"
+    usage
+end
