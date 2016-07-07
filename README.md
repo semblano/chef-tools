@@ -66,7 +66,7 @@ Usage: chef-tools deploy -e|--environment <environment_name>
 ``` Bash
 "chef-tools bootstrap -e Dev11 --yes"
 "chef-tools bootstrap -n \"webserver01 webserver02\" --yes"
-"chef-tools bootstrap -n \"webserver01 webserver02\" --domain qa.whitepj.net --yes"
+"chef-tools bootstrap -n \"webserver01 webserver02\" --domain your.custom.domain --yes"
 "chef-tools bootstrap --help"
 ```
 
